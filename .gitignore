@@ -1,0 +1,11 @@
+bin/
+obj/
+*.swp
+*.dll
+*.exe
+bin/
+obj/
+*.swp
+*.dll
+*.exe
+.vscode
