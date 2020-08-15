@@ -9,3 +9,6 @@ obj/
 *.dll
 *.exe
 .vscode
+.nuspec
+*.nuspec
+*.nupkg

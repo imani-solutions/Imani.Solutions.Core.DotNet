@@ -15,7 +15,7 @@
 
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Compile Remove="**\*.Tests.cs" />
+    <Compile Remove="Test\*.*" />
   </ItemGroup>
 
 </Project>
