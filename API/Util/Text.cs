@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Imani.Solutions.Core.Util
+namespace Imani.Solutions.Core.API.Util
 {
     public class Text
     {
@@ -32,7 +32,7 @@ namespace Imani.Solutions.Core.Util
      
         }
 
-    private string ReplaceRE(String re, String replacement, String source)
+        private string ReplaceRE(String re, String replacement, String source)
     {
     		Regex regex = new Regex(re);
     		return regex.Replace(source,replacement);
