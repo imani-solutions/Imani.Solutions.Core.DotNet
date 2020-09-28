@@ -3,7 +3,7 @@ using System;
 namespace Imani.Solutions.Core.API.Util
 {
 
-    public class ConfigSettings
+    public class ConfigSettings : ISettings
     {
 
         public ConfigSettings() : this(Environment.GetCommandLineArgs())
@@ -17,6 +17,20 @@ namespace Imani.Solutions.Core.API.Util
 
         public string GetProperty(string configProp)
         {
+            string configValue = GetFromEnv(configProp);
+
+            if (String.IsNullOrEmpty(configValue))
+            {
+                string formattedEnv = FormatEnvVarName(configProp);
+                throw new ArgumentException($"Missing Environment Variable: {formattedEnv} or input argument: {configProp}");
+            }
+
+            return configValue;
+        }
+
+
+        private string GetFromEnv(string configProp)
+        {
             string configValue = Environment.GetEnvironmentVariable(configProp);
 
             if (configValue != null && configValue.Length > 0)
@@ -26,11 +40,7 @@ namespace Imani.Solutions.Core.API.Util
             }
             string formattedEnv = FormatEnvVarName(configProp);
 
-            configValue = Environment.GetEnvironmentVariable(formattedEnv);
-            if (String.IsNullOrEmpty(configValue))
-                throw new ArgumentException($"Missing Environment Variable: {formattedEnv} or input argument: {configProp}");
-
-            return configValue;
+            return Environment.GetEnvironmentVariable(formattedEnv);
         }
 
         internal void AddArgs(string[] args)
@@ -57,12 +67,45 @@ namespace Imani.Solutions.Core.API.Util
             }
         }
 
+
+        public string GetProperty(string propertyName, string defaultValue)
+        {
+            string configValue = GetFromEnv(propertyName);
+
+            if(String.IsNullOrEmpty(configValue))
+                return defaultValue;
+
+            return configValue;
+
+        }
+    
         internal string FormatEnvVarName(string text)
         {
             if (string.IsNullOrEmpty(text))
                 return null;
 
             return text.Replace('.', '_').ToUpper();
+        }
+
+        public int GetPropertyInteger(string propertyName)
+        {
+            string value = this.GetProperty(propertyName);
+            
+            return Convert.ToInt32(value);
+        }
+
+        public int GetPropertyInteger(string propertyName, int defaultValue)
+        {
+            return  GetProperty<int>(propertyName, defaultValue, (value) => Convert.ToInt32(value));
+        }
+
+        internal T GetProperty<T>(string propertyName, object defaultValue, Func<object,object> func)
+        {
+            string value = GetFromEnv(propertyName);
+            if(String.IsNullOrEmpty(value))
+                return (T)defaultValue;
+                
+            return (T)func(value);
         }
     }
 }

@@ -41,6 +41,14 @@ namespace Imani.Solutions.Core.API.Test.Util
             (() => subject.GetProperty("KAFKA_BOOTSTRAP_SERVERS"));
         }
 
+        [TestMethod]
+        public void GetProperty_Default()
+        {
+            string expected = "expected";
+            Assert.AreEqual(expected, this.subject.GetProperty("INVAID",expected));
+            
+        }
+
 
         [TestMethod]
         public void GetConfigProp_DotReplaced_Equals()
@@ -153,6 +161,23 @@ namespace Imani.Solutions.Core.API.Test.Util
             Assert.AreEqual("A_B",subject.FormatEnvVarName("A.B"));
         }
 
+        [TestMethod]
+        public void GetProperty_Integer()
+        {
+            Environment.SetEnvironmentVariable("PORT","1");
+            var actual = new ConfigSettings().GetPropertyInteger("PORT");
+            Assert.AreEqual(1,actual);
+            
+        }
+
+        [TestMethod]
+        public void GetProperty_Integer_Default()
+        {
+            
+            var actual = new ConfigSettings().GetPropertyInteger("INVALID",3);
+            Assert.AreEqual(3,actual);
+            
+        }
 
         [TestMethod]
         public void FormatEnvVarName_caseinsensitve()
