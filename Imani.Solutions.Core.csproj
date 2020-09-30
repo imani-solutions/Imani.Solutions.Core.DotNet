@@ -17,9 +17,7 @@
     <Tags>Dotnet C# Patterns, Cloud Native</Tags>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(Configuration)' != 'Release'">
-    <!-- <Compile Include="**/*.cs" /> -->
-  <!-- <ItemGroup> -->
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
   <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
   <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
@@ -27,7 +25,6 @@
   </ItemGroup>
  <ItemGroup Condition="'$(Configuration)' == 'Release'">
       <Compile Remove="API.Test/**" />
-      <!-- <Compile Include="API/**/*.cs" Exclude="API.Test/**/*.Test.cs" /> -->
   </ItemGroup>
 
 <ItemGroup>
