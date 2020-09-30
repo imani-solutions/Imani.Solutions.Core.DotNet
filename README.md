@@ -22,4 +22,6 @@ Example usage code
 ## Packaging
 
 
+dotnet pack -c Release
+
 nuget pack -properties Configuration=Release -Version 0.0.2
