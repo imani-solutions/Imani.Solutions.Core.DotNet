@@ -2,7 +2,10 @@ using System;
 
 namespace Imani.Solutions.Core.API.Util
 {
-
+    /// <summary>
+    /// This object supports geting properties for environment
+    /// variables or input arguments (prefix with --PROPERTY_NAME)
+    /// </summary>
     public class ConfigSettings : ISettings
     {
 
