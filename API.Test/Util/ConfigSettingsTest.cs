@@ -27,7 +27,9 @@ namespace Imani.Solutions.Core.API.Test.Util
             Environment.SetEnvironmentVariable(KAFKA_BOOTSTRAP_SERVERS_CONF, expected_KAFKA_BOOTSTRAP_SERVERS);
             Environment.SetEnvironmentVariable(KAFKA_CONSUMER_GROUP_CONF, expected_KAFKA_CONSUMER_GROUP);
             Environment.SetEnvironmentVariable(KAFKA_PRODUCER_TOPIC_CONFIG, expected_KAFKA_PRODUCER_TOPIC);
-
+            
+            Environment.SetEnvironmentVariable("CRYPTION_KEY","xQwdSd23sdsd23");
+            
             subject = new ConfigSettings();
         }
 
@@ -49,6 +51,17 @@ namespace Imani.Solutions.Core.API.Test.Util
             
         }
 
+        [TestMethod]
+        public void GetPassword()
+        {    
+            char[] expected = "secret".ToCharArray();
+            var encrypted= subject.EncryptPassword(expected);
+            Environment.SetEnvironmentVariable("MYPASSWORD",encrypted);
+            char [] password = this.subject.GetPropertyPassword("MYPASSWORD");
+
+            Assert.AreEqual(new string(expected),new string(password));
+
+        }
 
         [TestMethod]
         public void GetConfigProp_DotReplaced_Equals()

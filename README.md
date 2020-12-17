@@ -53,6 +53,33 @@ Use a default integer if the property not set.
 int port = config.GetPropertyInteger("KAFKA_PORT",9092);
 ```
 
+#### Passwords
+
+You must set the salt environment variable CRYPTION_KEY.
+
+```shell script
+# example
+export CRYPTION_KEY=xQwdSd23sdsd23
+```
+Generate encrypted password
+```c#
+var encrypted= config.EncryptPassword(expected);
+```
+
+Set encrypted password in the environment variable
+(along with salt key).
+
+```shell script
+# example
+export CRYPTION_KEY=xQwdSd23sdsd23
+export MYPASSWORD=outputFrom[config.EncryptPassword(expected)]
+```
+
+Get encrypted password by environment variable named MYPASSWORD
+```c#
+char [] password = config.GetPropertyPassword("MYPASSWORD");
+```
+
 
 ### Text
 
@@ -69,6 +96,15 @@ Example usage code
 
  Assert.Equal("Gregory Green",actual);
 ```
+
+### Cryption
+
+```c#
+Cryption subject = new Cryption(key);
+string actual = subject.EncryptText(expected);
+Assert.AreEqual(expected, subject.DecryptText(actual));
+```
+
 
 ## Packaging
 

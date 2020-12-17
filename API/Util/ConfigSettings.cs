@@ -8,6 +8,8 @@ namespace Imani.Solutions.Core.API.Util
     /// </summary>
     public class ConfigSettings : ISettings
     {
+        private Cryption cryption  = null;
+        private const string CRYPTION_KEY_PROP = "CRYPTION_KEY";
 
         public ConfigSettings() : this(Environment.GetCommandLineArgs())
         {
@@ -81,7 +83,28 @@ namespace Imani.Solutions.Core.API.Util
             return configValue;
 
         }
-    
+
+        public string EncryptPassword(char[] password)
+        {
+            return this.GetCryption().EncryptText(new string(password));
+        }
+
+        public char[] GetPropertyPassword(string propertyName)
+        {
+            string configValue = GetProperty(propertyName);
+            return GetCryption().DecryptText(configValue).ToCharArray();
+        }
+
+        private  Cryption GetCryption()
+        {
+            if(cryption == null)
+            {
+                cryption = new Cryption(GetProperty(CRYPTION_KEY_PROP));
+            }
+
+            return cryption;
+        }
+
         internal string FormatEnvVarName(string text)
         {
             if (string.IsNullOrEmpty(text))
