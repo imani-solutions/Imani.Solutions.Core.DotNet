@@ -110,4 +110,4 @@ Assert.AreEqual(expected, subject.DecryptText(actual));
 
 dotnet pack -c Release
 
-nuget pack -properties Configuration=Release -Version 0.0.2
+nuget pack -properties Configuration=Release -Version 0.0.4
