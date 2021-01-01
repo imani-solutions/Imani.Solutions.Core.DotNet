@@ -5,6 +5,14 @@ using System.Text.RegularExpressions;
 
 namespace Imani.Solutions.Core.API.Util
 {
+    /// <summary>
+    ///  This class is geared toward string based processing. 
+    /// It includes template engine support 
+    /// like Free Marker that builds composite strings/values dynamically at runtime 
+    /// (see http://freemarker.sourceforge.net/). 
+    /// 
+    /// author: Gregory Green
+    /// </summary>
     public class Text
     {
         public string Format(string text, IDictionary<string, string> dictionary)

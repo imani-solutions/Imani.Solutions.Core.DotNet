@@ -2,8 +2,14 @@ using System.Collections.Generic;
 using Imani.Solutions.Core.API.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Imani.Solutions.Core.API.Test
+namespace Imani.Solutions.Core.API.Test.Util
 {
+
+    /// <summary>
+    /// Testing for Texting 
+    /// 
+    /// author: Gregory Green
+    /// </summary>
     [TestClass]
     public class TextTest
     {

@@ -5,11 +5,18 @@ using System.Text;
 
 namespace Imani.Solutions.Core.API.Util
 {
+    /// <summary>
+    /// Cryption provides a set of functions to encrypt and 
+    ///  decrypt bytes and text. 
+    /// 
+    /// author: Gregory Green
+    /// </summary>
     public class Cryption
     {
         private byte[] key;
 
         private const int REQUIRED_KEY_SIZE = 32;
+        public const String CRYPTION_PREFIX = "{cryption}";
 
         public Cryption(string key)
         {
@@ -47,8 +54,14 @@ namespace Imani.Solutions.Core.API.Util
             }  
   
             return Convert.ToBase64String(array);  
-        }  
-  
+        }
+
+        public string EncryptTextWithPrefix(string value)
+        {
+            return new StringBuilder().Append(CRYPTION_PREFIX)
+            .Append(this.EncryptText(value)).ToString();
+        }
+
         public string DecryptText(string cipherText)  
         {  
             byte[] iv = new byte[16];  
@@ -71,7 +84,22 @@ namespace Imani.Solutions.Core.API.Util
                     }  
                 }  
             }  
-        }  
+        }
+
+        public String Interrupt(string configValue)
+        {
+            if(configValue == null)
+                return "";
+            
+            String trimmedConfigValue = configValue.Trim();
+            if(trimmedConfigValue.StartsWith(CRYPTION_PREFIX))
+            {
+                String value = trimmedConfigValue.Substring(CRYPTION_PREFIX.Length);
+                return DecryptText(value);
+            }
+
+            return configValue;
+        }
     }  
 
 }

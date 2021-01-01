@@ -1,5 +1,10 @@
 namespace Imani.Solutions.Core.API.Util
 {
+    /// <summary>
+    /// Interface for configuration settings
+    /// 
+    /// author: Gregory Green
+    /// </summary>
     public interface ISettings
     {
         public string GetProperty(string configProp);

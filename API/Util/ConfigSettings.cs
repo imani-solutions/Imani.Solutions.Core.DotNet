@@ -5,6 +5,8 @@ namespace Imani.Solutions.Core.API.Util
     /// <summary>
     /// This object supports geting properties for environment
     /// variables or input arguments (prefix with --PROPERTY_NAME)
+    /// 
+    /// author: Gregory Green
     /// </summary>
     public class ConfigSettings : ISettings
     {
@@ -33,6 +35,37 @@ namespace Imani.Solutions.Core.API.Util
             return configValue;
         }
 
+        public string GetProperty(string propertyName, string defaultValue)
+        {
+            string configValue = GetFromEnv(propertyName);
+
+            if(String.IsNullOrEmpty(configValue))
+                return defaultValue;
+
+            return configValue;
+
+        }
+
+        public string EncryptPassword(char[] password)
+        {
+            return this.GetCryption().EncryptTextWithPrefix(new string(password));
+        }
+
+        public char[] GetPropertyPassword(string propertyName)
+        {
+            string configValue = GetProperty(propertyName);
+
+            
+            return GetCryption().Interrupt(configValue).ToCharArray();
+        }
+        public char[] GetPropertyPassword(string propertyName, char[] defaultValue)
+        {
+            string configValue = GetProperty(propertyName,"");
+            if("".Equals(configValue))
+                return defaultValue;
+
+            return GetCryption().Interrupt(configValue).ToCharArray();
+        }
 
         private string GetFromEnv(string configProp)
         {
@@ -73,28 +106,6 @@ namespace Imani.Solutions.Core.API.Util
         }
 
 
-        public string GetProperty(string propertyName, string defaultValue)
-        {
-            string configValue = GetFromEnv(propertyName);
-
-            if(String.IsNullOrEmpty(configValue))
-                return defaultValue;
-
-            return configValue;
-
-        }
-
-        public string EncryptPassword(char[] password)
-        {
-            return this.GetCryption().EncryptText(new string(password));
-        }
-
-        public char[] GetPropertyPassword(string propertyName)
-        {
-            string configValue = GetProperty(propertyName);
-            return GetCryption().DecryptText(configValue).ToCharArray();
-        }
-
         private  Cryption GetCryption()
         {
             if(cryption == null)
@@ -104,6 +115,8 @@ namespace Imani.Solutions.Core.API.Util
 
             return cryption;
         }
+
+     
 
         internal string FormatEnvVarName(string text)
         {
@@ -124,6 +137,16 @@ namespace Imani.Solutions.Core.API.Util
         {
             return  GetProperty<int>(propertyName, defaultValue, (value) => Convert.ToInt32(value));
         }
+        public bool GetPropertyBoolean(string propertyName)
+        {
+             string value = this.GetProperty(propertyName);
+            
+            return Convert.ToBoolean(value);
+        }
+       public bool GetPropertyBoolean(string propertyName, bool defaultValue)
+        {
+            return  GetProperty<bool>(propertyName, defaultValue, (value) => Convert.ToBoolean(value));
+        }
 
         internal T GetProperty<T>(string propertyName, object defaultValue, Func<object,object> func)
         {
@@ -133,5 +156,7 @@ namespace Imani.Solutions.Core.API.Util
                 
             return (T)func(value);
         }
+
+     
     }
 }

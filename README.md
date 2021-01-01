@@ -108,6 +108,21 @@ Assert.AreEqual(expected, subject.DecryptText(actual));
 
 ## Packaging
 
-dotnet pack -c Release
+*Pre steps*
 
-nuget pack -properties Configuration=Release -Version 0.0.5
+- Update Imani.Solutions.Core.nuspec version
+- Update Imani.Solutions.Core.csproj
+
+
+
+```shell script
+dotnet build -c Release
+```
+
+```shell script
+dotnet pack -c Release
+```
+
+```shell script
+nuget pack Imani.Solutions.Core.csproj -properties Configuration=Release -Version 0.0.7
+```

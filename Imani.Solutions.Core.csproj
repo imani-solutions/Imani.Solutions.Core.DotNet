@@ -3,7 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>Imani.Solutions.Core.DotNet</PackageId>
-    <Version>0.0.3</Version>
+    <Version>0.0.8</Version>
+    <PackageReleaseNotes>Password encryption support</PackageReleaseNotes>
     <Authors>Gregory Green</Authors>
     <Company>https://github.com/imani-solutions/Imani.Solutions.Core.DotNet</Company>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
@@ -11,10 +12,12 @@
     <Language>C#</Language>
     <Summary>This DotNet core C# API that provides support for application utilities (application configuration, text processing and more).</Summary>
     <PackageDescription>This DotNet core C# API that provides support for application utilities (application configuration, text processing and more).</PackageDescription>
+    
     <Description>This DotNet core C# API that provides support for application utilities (application configuration, text processing and more)</Description>
     <RepositoryUrl>https://github.com/imani-solutions/Imani.Solutions.Core.DotNet</RepositoryUrl>
     <ProjectURL>https://github.com/imani-solutions/Imani.Solutions.Core.DotNet</ProjectURL>
     <Tags>Dotnet C# Patterns, Cloud Native</Tags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
