@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Imani.Solutions.Core.API.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -45,7 +46,31 @@ namespace Imani.Solutions.Core.API.Test.Util
 
         }
        
-        
+        [TestMethod]
+        public void GenerateText()
+        {
+            int expectedSize = 10;
+            string actual = subject.GenerateText(expectedSize,"hello");
+            Console.WriteLine($"OUT[{actual}]"); 
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expectedSize,actual.Length);
+
+            Assert.AreEqual("",subject.GenerateText(0,"a"));
+
+
+            Assert.ThrowsException<ArgumentException>( 
+                () => subject.GenerateText(1,""));
+
+            Assert.ThrowsException<ArgumentException>( 
+                () => subject.GenerateText(0,""));
+            
+
+            Assert.ThrowsException<ArgumentException>( 
+                () => subject.GenerateText(1,null));
+
+            Assert.ThrowsException<ArgumentException>( 
+                () => subject.GenerateText(0,null));
+        }
         
     }
 }

@@ -64,7 +64,7 @@ namespace Imani.Solutions.Core.API.Test.Util
             [TestInitialize]
             public void InitializeConfigSettingsTest()
             {
-                
+
                 subject = new ConfigSettings();
             }
 
@@ -81,10 +81,43 @@ namespace Imani.Solutions.Core.API.Test.Util
             }
 
             [TestMethod]
+            public void GetSecret()
+            {
+                string expected = "secret";
+                string encrypted = subject.EncryptSecret(expected);
+                Environment.SetEnvironmentVariable("MYSECRET", encrypted);
+                string secret = this.subject.GetPropertySecret("MYSECRET");
+
+                Assert.AreEqual(expected, secret);
+            }
+
+            [TestMethod]
+            public void GetSecret_Default()
+            {
+                string expected = "secret";
+                string secret = this.subject.GetPropertySecret("DOESNOT_EXISTS", expected);
+
+                Assert.AreEqual(expected, secret);
+            }
+
+            [TestMethod]
+            public void GetSecret_Default_NotUsed()
+            {
+                string expected = "secret";
+                var myKey = "sadaasda";
+                Environment.SetEnvironmentVariable("CRYPTION_KEY", myKey);
+                string encrypted = subject.EncryptSecret(expected);
+                Environment.SetEnvironmentVariable("MYSECRET", encrypted);
+                string secret = this.subject.GetPropertySecret("MYSECRET", "");
+
+                Assert.AreEqual(expected, secret);
+            }
+
+            [TestMethod]
             public void GetPassword_Default()
             {
 
-                Assert.AreEqual("EXPECTED", new string(subject.GetPropertyPassword("NEWPASSWORD","EXPECTED".ToCharArray())));
+                Assert.AreEqual("EXPECTED", new string(subject.GetPropertyPassword("NEWPASSWORD", "EXPECTED".ToCharArray())));
 
             }
             [TestMethod]
@@ -232,7 +265,7 @@ namespace Imani.Solutions.Core.API.Test.Util
         [TestMethod]
         public void GetPropertyBoolean_Default()
         {
-            bool actual = new ConfigSettings().GetPropertyBoolean("BOOL_PROP_DOES_NOT_EXISTS",true);
+            bool actual = new ConfigSettings().GetPropertyBoolean("BOOL_PROP_DOES_NOT_EXISTS", true);
             Assert.AreEqual(true, actual);
 
         }

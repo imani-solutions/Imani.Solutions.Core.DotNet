@@ -46,17 +46,27 @@ namespace Imani.Solutions.Core.API.Util
 
         }
 
-        public string EncryptPassword(char[] password)
-        {
-            return this.GetCryption().EncryptTextWithPrefix(new string(password));
-        }
-
-        public char[] GetPropertyPassword(string propertyName)
+ 
+        public string GetPropertySecret(string propertyName)
         {
             string configValue = GetProperty(propertyName);
 
+            return GetCryption().Interrupt(configValue);
+        }
+
+        public string GetPropertySecret(string propertyName, string defaultValue)
+        {
+            string configValue = GetProperty(propertyName,"");
+            if(String.IsNullOrEmpty(configValue))
+                return defaultValue;
             
-            return GetCryption().Interrupt(configValue).ToCharArray();
+            return GetCryption().Interrupt(configValue);
+        }
+
+
+        public char[] GetPropertyPassword(string propertyName)
+        {
+            return GetPropertySecret(propertyName).ToCharArray();
         }
         public char[] GetPropertyPassword(string propertyName, char[] defaultValue)
         {
@@ -105,6 +115,14 @@ namespace Imani.Solutions.Core.API.Util
             }
         }
 
+        public string EncryptSecret(string secret)
+        {
+            return this.GetCryption().EncryptTextWithPrefix(secret);
+        }
+        public string EncryptPassword(char[] password)
+        {
+            return EncryptSecret(new string(password));
+        }
 
         private  Cryption GetCryption()
         {
@@ -116,7 +134,6 @@ namespace Imani.Solutions.Core.API.Util
             return cryption;
         }
 
-     
 
         internal string FormatEnvVarName(string text)
         {

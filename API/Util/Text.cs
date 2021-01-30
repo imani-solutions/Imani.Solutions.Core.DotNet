@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Imani.Solutions.Core.API.Util
@@ -46,6 +47,30 @@ namespace Imani.Solutions.Core.API.Util
     		return regex.Replace(source,replacement);
     		
     }
+    /// <summary>
+    /// Generated text of a given value
+    /// </summary>
+    /// <param name="size">the test length</param>
+    /// <param name="seed">the text values to use to generate text</param>
+    /// <returns>Outputted text with size</returns>
+        public string GenerateText(int size,string seed)
+        {
+            if(seed == null || seed.Length == 0)
+                throw new ArgumentException("Not empty text seed required");
 
+            if(size < 1)
+                return "";
+
+            var builder = new StringBuilder(size);
+            int seedLength = seed.Length;
+
+            for(int i=0;i< size;i++)
+            {
+                builder.Append(seed[i%seedLength]);
+            }
+            
+            return builder.ToString();
+
+        }
     }
 }

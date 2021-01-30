@@ -14,5 +14,18 @@ namespace Imani.Solutions.Core.API.Util
         public int GetPropertyInteger(string propertyName, int defaultValue);
 
         public int GetPropertyInteger(string propertyName);
+
+        public char[] GetPropertyPassword(string propertyName);
+
+        public char[] GetPropertyPassword(string propertyName, char[] defaultValue);
+
+        public bool GetPropertyBoolean(string propertyName, bool defaultValue);
+
+        public bool GetPropertyBoolean(string propertyName);
+
+        public string GetPropertySecret(string propertyName, string defaultValue);
+
+        public string GetPropertySecret(string propertyName);
+
     }
 }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>Imani.Solutions.Core.DotNet</PackageId>
-    <Version>0.0.8</Version>
+    <Version>0.0.9</Version>
     <PackageReleaseNotes>Password encryption support</PackageReleaseNotes>
     <Authors>Gregory Green</Authors>
     <Company>https://github.com/imani-solutions/Imani.Solutions.Core.DotNet</Company>
