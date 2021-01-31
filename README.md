@@ -53,6 +53,23 @@ Use a default integer if the property not set.
 int port = config.GetPropertyInteger("KAFKA_PORT",9092);
 ```
 
+Get a boolean value
+
+```c#
+bool actual = new ConfigSettings().GetPropertyBoolean("BOOL_PROP");
+```
+
+Get a decrypted secret
+
+```c#
+string secret = this.subject.GetPropertySecret("MYSECRET");
+```
+
+Get a decrypted password secret
+```c#
+char[] password = this.subject.GetPropertyPassword("MYPASSWORD");
+```
+
 #### Passwords
 
 You must set the salt environment variable CRYPTION_KEY.
