@@ -141,5 +141,5 @@ dotnet pack -c Release
 ```
 
 ```shell script
-nuget pack Imani.Solutions.Core.csproj -properties Configuration=Release -Version 0.0.8
+nuget pack Imani.Solutions.Core.csproj -properties Configuration=Release -Version 0.0.9
 ```
