@@ -215,5 +215,7 @@ dotnet pack -c Release
 ```
 
 ```shell script
-nuget pack Imani.Solutions.Core.csproj -properties Configuration=Release -Version 0.0.9
+nuget pack Imani.Solutions.Core.csproj -properties Configuration=Release -Version 0.1.0
 ```
+
+Upload file  Imani.Solutions.Core.<version>.nupkg to NuGet
