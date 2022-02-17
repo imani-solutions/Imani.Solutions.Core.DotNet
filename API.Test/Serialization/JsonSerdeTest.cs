@@ -16,7 +16,7 @@ namespace Imani.Solutions.Core.API.Test.Serialization
          }
 
         [TestMethod]
-        public void Serializization()
+        public void Serialization()
         {
             DomainQa expected = new DomainQa(){
                 Id = "hello"

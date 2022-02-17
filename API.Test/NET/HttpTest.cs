@@ -20,9 +20,25 @@ namespace Imani.Solutions.Core.API.Test.NET
       {
             string url = "http://www.TheRevelationSquad.com";
 
-            var html = subject.Get(url);
-            Console.WriteLine("HTML:"+html);
-            Assert.IsNotNull(html);
+            var httpResponse = subject.Get(url);
+            Assert.IsNotNull(httpResponse);
+
+            Assert.AreEqual(200,httpResponse.StatusCode);
+            Console.WriteLine("HTML:"+httpResponse.Body);
+
+      }
+
+       public void post()
+      {
+            string url = "http://www.TheRevelationSquad.com";
+
+            string payload = "{}";
+            string contentType = "application/json";
+            var httpResponse = subject.Post(url,payload,contentType);
+            Assert.IsNotNull(httpResponse);
+            
+            Assert.AreEqual(200,httpResponse.StatusCode);
+            Console.WriteLine("HTML:"+httpResponse.Body);
 
       }
   }

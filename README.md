@@ -122,8 +122,82 @@ string actual = subject.EncryptText(expected);
 Assert.AreEqual(expected, subject.DecryptText(actual));
 ```
 
+# Imani.Solutions.Core.API.NET
 
-## Packaging
+## Http
+
+
+### GET
+
+```c#
+string url = "http://www.TheRevelationSquad.com";
+
+var subject =new Http();
+var httpResponse = subject.Get(url);
+Assert.IsNotNull(httpResponse);
+Assert.AreEqual(200,httpResponse.StatusCode);
+Console.WriteLine("HTML:"+httpResponse.Body);
+```
+
+### GET
+
+```c#
+string url = "http://www.TheRevelationSquad.com";
+
+var subject =new Http();
+var httpResponse = subject.Get(url);
+Assert.IsNotNull(httpResponse);
+Assert.AreEqual(200,httpResponse.StatusCode);
+Console.WriteLine("HTML:"+httpResponse.Body);
+```
+
+### POST
+
+```c#
+string url = "http://www.TheRevelationSquad.com";
+
+
+string payload = "{}";
+string contentType = "application/json";
+var httpResponse = subject.Post(url,payload,contentType);
+Assert.IsNotNull(httpResponse);
+
+Assert.AreEqual(200,httpResponse.StatusCode);
+Console.WriteLine("HTML:"+httpResponse.Body);
+```
+
+# Imani.Solutions.Core.API.Serialization
+
+## JsonSerde
+
+### Serialization
+
+```c#
+var subject = new JsonSerde<DomainQa>();
+DomainQa expected = new DomainQa(){
+    Id = "hello"
+};
+           
+var actualSerialized = subject.Serialize(expected);
+Assert.IsNotNull(actualSerialized);
+
+var actual = subject.Deserialize(actualSerialized);
+Assert.AreEqual(expected.Id,actual.Id);
+```
+
+## Deserialization
+
+```c#
+var subject = new JsonSerde<DomainQa>();
+ 
+string json ="{\"Id\" : \"You\"}";
+DomainQa actual = subject.Deserialize(json);
+Assert.AreEqual("You",actual.Id);
+
+```
+
+
+# Packaging
 
 *Pre steps*
 
